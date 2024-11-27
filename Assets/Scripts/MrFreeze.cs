@@ -28,7 +28,7 @@ public class MrFreeze : MonoBehaviour, IClickable
         else
         {
             _collider.material = _ogMaterial;
-            _renderer.material.color _ogColor;
+            _renderer.material.color = _ogColor;
         }
     }
 }

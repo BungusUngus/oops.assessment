@@ -2,20 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//MONOBEHAVIOUR CANNOT BE SERIALIZED
 [System.Serializable]
-public class HighscoreData
+public class HighScoreData
 {
     public float[] scores;
     public string[] names;
 
     //Constructor
-    public HighscoreData() 
+    public HighScoreData() 
     {
         scores = new[] { 99f, 10f, 1f };
         names = new[] { "Andrew", "Alex", "Steve" };
     }
 
-    public HighscoreData(float[] scores, string[] names)
+    public HighScoreData(float[] scores, string[] names)
     {
         this.scores = scores;
         this.names = names;

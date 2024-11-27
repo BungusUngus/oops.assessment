@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using TMPro;
+using System.Linq;
 
 public class HighscoreSystem : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class HighscoreSystem : MonoBehaviour
     public TMP_Text textPrefab;
 
     public static HighscoreSystem instance;
+
     private void Awake()
     {
         if (instance == null)
@@ -24,10 +26,25 @@ public class HighscoreSystem : MonoBehaviour
         else
         {
             Destroy(gameObject);
-        } 
+        }
     }
+
+    public HighScoreData data;
+
+    private void OnDestroy()
+    {
+        HighScoreData data = new HighScoreData(scores.ToArray(), names.ToArray());
+        JsonSaveLoad.SaveHighScore(data);
+    }
+
     private void Start()
     {
+        HighScoreData data = JsonSaveLoad.LoadHighScore();
+        if (data != null)
+        {
+            names = data.names.ToList();
+            scores = data.scores.ToList();
+        }
         RefreshScoreDisplay();
     }
 
@@ -48,7 +65,7 @@ public class HighscoreSystem : MonoBehaviour
         }
     }
 
-    string[] possibleNames = { "asd", "serer", "dsfdsf", "sdfsd" };
+    string[] possibleNames = { "Kleplarian", "Leonardo", "Zagreus", "Steve", "Pablo", "Gragas", "Zorp", "Michelle" };
     public void NewScore(float score)
     {
         NewScore(possibleNames[Random.Range(0, possibleNames.Length)], score);
